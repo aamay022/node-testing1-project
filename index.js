@@ -80,9 +80,9 @@ class Seasons {
   /**
    * [Exercise 5A] Seasons creates a seasons object
    */
-  constructor() {
+  constructor(arr) {
     // ✨ initialize whatever properties are needed
-    
+    this.newSeason = arr[0]
   }
 
   /**
@@ -99,6 +99,7 @@ class Seasons {
    */
   next() {
     // ✨ implement
+    // if(this.newSeason === 'summer')
   }
 }
 
