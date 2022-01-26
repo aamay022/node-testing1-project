@@ -8,11 +8,11 @@
  */
 function trimProperties(obj) {
   // ✨ implement
-  return {
-    foo: obj.foo.trim(),
-    bar: obj.bar.trim(),
-    baz: obj.baz.trim()
-  }
+  let result = {}
+ for (let prop in obj){
+   result[prop] = obj[prop].trim()
+ }
+ return result
 }
 
 /**
@@ -25,9 +25,11 @@ function trimProperties(obj) {
  */
 function trimPropertiesMutation(obj) {
   // ✨ implement
-  return {
-    name: obj.name.trim()
-  }
+  
+ for (let prop in obj){
+   obj[prop] = obj[prop].trim()
+ }
+ return obj
 }
 
 /**
@@ -80,9 +82,10 @@ class Seasons {
   /**
    * [Exercise 5A] Seasons creates a seasons object
    */
-  constructor(arr) {
+  constructor() {
     // ✨ initialize whatever properties are needed
-    this.newSeason = arr[0]
+    this.seasons = ['summer', 'fall','winter','spring']
+    this.currentSeason = 0
   }
 
   /**
@@ -99,7 +102,13 @@ class Seasons {
    */
   next() {
     // ✨ implement
-    // if(this.newSeason === 'summer')
+    const result = this.seasons[this.currentSeason]
+    if(this.currentSeason === 3){
+      this.currentSeason = 0
+    }else{
+      ++this.currentSeason
+    }
+    return result
   }
 }
 
@@ -112,8 +121,9 @@ class Car {
    */
   constructor(name, tankSize, mpg) {
     this.odometer = 0 // car initilizes with zero miles
-    this.tank = tankSize // car initiazes full of gas
-    // ✨ initialize whatever other properties are needed
+    this.tank = tankSize
+    this.tankSize = tankSize // car initiazes full of gas
+    this.mpg = mpg// ✨ initialize whatever other properties are needed
   }
 
   /**
@@ -131,6 +141,16 @@ class Car {
    */
   drive(distance) {
     // ✨ implement
+    const milesCanDrive = this.odometer * this.mpg
+    if(distance <= milesCanDrive){
+      this.odometer = this.odometer + distance
+      this.tank = this.tank - (distance / this.mpg)
+    }else{
+      this.tank = 0
+      this.odometer = this.odometer + milesCanDrive
+
+    }
+    return this.odometer
   }
 
   /**
@@ -146,9 +166,20 @@ class Car {
    */
   refuel(gallons) {
     // ✨ implement
+    const gallonsThatFit = this.tankSize - this.tank
+
+    if(gallons <= gallonsThatFit){
+      this.tank = this.tank + gallonsThatFit 
+    }else{
+      this.tank = this.tankSize
+    }
+    return this.tank * this.mpg
   }
 }
-
+// const focus = new Car ('focus', 20, 30)
+//   focus.drive(400)
+//   focus.drive(100)
+//   focus.drive(200)
 /**
  * [Exercise 7] Asynchronously resolves whether a number is even
  * @param {number} number - the number to test for evenness
